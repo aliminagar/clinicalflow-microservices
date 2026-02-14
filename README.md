@@ -164,48 +164,52 @@ curl -X POST http://localhost:8082/api/lab-results \
 
 A critical potassium value (6.2 > 5.0) triggers a Kafka event that the notification service consumes and logs as a clinical alert.
 
+## Project Structure
+
+```
 clinicalflow/
-├── docker-compose.yml # Kafka + PostgreSQL infrastructure
-├── patient-service/ # Patient registration & lifecycle events
-│ ├── Dockerfile
-│ ├── pom.xml
-│ └── src/main/java/com/clinicalflow/patient/
-│ ├── PatientServiceApplication.java
-│ ├── config/
-│ │ └── KafkaConfig.java
-│ ├── controller/
-│ │ └── PatientController.java
-│ ├── model/
-│ │ ├── Patient.java
-│ │ └── PatientStatus.java
-│ ├── repository/
-│ │ └── PatientRepository.java
-│ └── service/
-│ └── PatientService.java
-├── lab-service/ # Lab orders, results & critical value detection
-│ ├── Dockerfile
-│ ├── pom.xml
-│ └── src/main/java/com/clinicalflow/lab/
-│ ├── LabServiceApplication.java
-│ ├── config/
-│ │ └── KafkaConfig.java
-│ ├── controller/
-│ │ └── LabResultController.java
-│ ├── event/
-│ │ ├── LabResultEvent.java
-│ │ └── LabResultEventPublisher.java
-│ ├── model/
-│ │ ├── LabResult.java
-│ │ ├── ResultFlag.java
-│ │ └── ResultStatus.java
-│ ├── repository/
-│ │ └── LabResultRepository.java
-│ └── service/
-│ └── LabResultService.java
-├── notification-service/ # Clinical alert consumer
+├── docker-compose.yml              # Kafka + PostgreSQL infrastructure
+├── patient-service/                # Patient registration & lifecycle events
+│   ├── Dockerfile
+│   ├── pom.xml
+│   └── src/main/java/com/clinicalflow/patient/
+│       ├── PatientServiceApplication.java
+│       ├── config/
+│       │   └── KafkaConfig.java
+│       ├── controller/
+│       │   └── PatientController.java
+│       ├── model/
+│       │   ├── Patient.java
+│       │   └── PatientStatus.java
+│       ├── repository/
+│       │   └── PatientRepository.java
+│       └── service/
+│           └── PatientService.java
+├── lab-service/                    # Lab orders, results & critical value detection
+│   ├── Dockerfile
+│   ├── pom.xml
+│   └── src/main/java/com/clinicalflow/lab/
+│       ├── LabServiceApplication.java
+│       ├── config/
+│       │   └── KafkaConfig.java
+│       ├── controller/
+│       │   └── LabResultController.java
+│       ├── event/
+│       │   ├── LabResultEvent.java
+│       │   └── LabResultEventPublisher.java
+│       ├── model/
+│       │   ├── LabResult.java
+│       │   ├── ResultFlag.java
+│       │   └── ResultStatus.java
+│       ├── repository/
+│       │   └── LabResultRepository.java
+│       └── service/
+│           └── LabResultService.java
+├── notification-service/           # Clinical alert consumer
 ├── docs/
-│ └── images/ # Screenshots for documentation
+│   └── images/                     # Screenshots for documentation
 └── .gitignore
+```
 
 ## Design Decisions
 
@@ -227,7 +231,7 @@ clinicalflow/
 
 ## Author
 
-Alireza Minagar, MD, MBA, MS (Bioinformatics), MSIT
+**Alireza Minagar, MD, MBA, MS (Bioinformatics), MSIT**
 
 Software Engineer | Neurologist & Neuro-immunologist
 
