@@ -2,6 +2,8 @@
 
 A distributed microservices system for clinical care coordination, built with Spring Boot, Apache Kafka, PostgreSQL, and Docker. Implements real-world hospital workflows including patient Registration, Admission, Transfer, and Discharge (RATD) with event-driven communication across services.
 
+> ⚠️ **Disclaimer:** All patient data shown in this project is entirely fictitious. No real patient health information (PHI) is used. This project is for demonstration purposes only and is not intended for clinical use.
+
 ## Architecture
 
 ```
@@ -200,13 +202,13 @@ clinicalflow/
 
 ## Author
 
-\*\*Alireza Minagar, MD, MBA, MS (Bioinformatics), MSIT
+Alireza Minagar, MD, MBA, MS (Bioinformatics), MSIT
 
 Software Engineer | Neurologist & Neuro-immunologist
 
 Building healthcare technology informed by 20+ years of clinical experience.
 
-[GitHub](https://github.com/aliminagar) | [LinkedIn] (https://www.linkedin.com/in/alireza-minagar-b450aa173/)
+[GitHub](https://github.com/aliminagar) | [LinkedIn](https://www.linkedin.com/in/alireza-minagar-b450aa173/)
 
 ## License
 
