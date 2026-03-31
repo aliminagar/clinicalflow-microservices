@@ -1,5 +1,7 @@
-# Docker Compose configuration for ClinicalFlow microservices infrastructure
-# This file provisions databases and Kafka for local development
+# This Docker Compose file provisions the infrastructure for my application.
+# It sets up separate PostgreSQL databases for patient and lab services to maintain data isolation,
+# and a Kafka broker to enable event-driven communication between services.
+# Volumes are used to persist data across container restarts.
 
 services:
 
