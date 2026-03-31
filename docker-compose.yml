@@ -1,43 +1,67 @@
+# Docker Compose configuration for ClinicalFlow microservices infrastructure
+# This file provisions databases and Kafka for local development
+
 services:
+
+  # -------------------------------
+  # Patient Service Database
+  # -------------------------------
   postgres-patient:
     image: postgres:16
     container_name: clinicalflow-patient-db
     environment:
-      POSTGRES_USER: clinicalflow
-      POSTGRES_PASSWORD: clinicalflow
-      POSTGRES_DB: patient_db
+      POSTGRES_USER: clinicalflow           # DB username
+      POSTGRES_PASSWORD: clinicalflow       # DB password
+      POSTGRES_DB: patient_db               # Database name for patient service
     ports:
-      - "5432:5432"
+      - "5432:5432"                         # Expose DB on localhost:5432
     volumes:
-      - patient_pgdata:/var/lib/postgresql/data
+      - patient_pgdata:/var/lib/postgresql/data   # Persist patient DB data
 
+  # -------------------------------
+  # Lab Service Database
+  # -------------------------------
   postgres-lab:
     image: postgres:16
     container_name: clinicalflow-lab-db
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: lab_db
+      POSTGRES_USER: postgres               # DB username
+      POSTGRES_PASSWORD: postgres           # DB password
+      POSTGRES_DB: lab_db                   # Database name for lab service
     ports:
-      - "5433:5432"
+      - "5433:5432"                         # Map to 5433 to avoid conflict with patient DB
     volumes:
-      - lab_pgdata:/var/lib/postgresql/data
+      - lab_pgdata:/var/lib/postgresql/data # Persist lab DB data
 
+  # -------------------------------
+  # Kafka Broker (Event Streaming)
+  # -------------------------------
   kafka:
     image: apache/kafka:3.7.1
     container_name: clinicalflow-kafka
     ports:
-      - "9092:9092"
+      - "9092:9092"                         # Kafka default port for producers/consumers
     environment:
       KAFKA_NODE_ID: 1
-      KAFKA_PROCESS_ROLES: broker,controller
+      KAFKA_PROCESS_ROLES: broker,controller   # Runs as both broker and controller (single-node setup)
+
+      # Listener configuration for client and internal communication
       KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092,CONTROLLER://0.0.0.0:9093
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
+
+      # Controller configuration for cluster management
       KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
       KAFKA_CONTROLLER_QUORUM_VOTERS: 1@localhost:9093
+
+      # Replication factor (set to 1 for local development)
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+
+      # Unique cluster ID (required for Kafka startup)
       CLUSTER_ID: MkU3OEVBNTcwNTJENDM2Qk
 
+# -------------------------------
+# Named Volumes (Persistent Storage)
+# -------------------------------
 volumes:
-  patient_pgdata:
-  lab_pgdata:
+  patient_pgdata:   # Stores patient database data
+  lab_pgdata:       # Stores lab database data
